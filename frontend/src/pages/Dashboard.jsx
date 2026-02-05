@@ -88,7 +88,7 @@ const Dashboard = () => {
                 ))}
               </div>
             </>
-          )}
+          )};
 
           {activeTab === 'add' && (
             <div className="form-card">
@@ -113,8 +113,8 @@ const Dashboard = () => {
                 <div className="form-group">
                   <label>Хүргэлтийн төрөл</label>
                   <select className="input-field" value={formData.delivery_type} onChange={e => setFormData({...formData, delivery_type: e.target.value})}>
-                    <option value="Standard">Standard (2-3 хоног)</option>
-                    <option value="Express">Express (24 цаг)</option>
+                    <option value="Standard">Standard (5-7 хоног)</option>
+                    <option value="Express">Express (2-3 цаг)</option>
                   </select>
                 </div>
 

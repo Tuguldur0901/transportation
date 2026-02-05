@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import API from '../api/axios';
 import { useNavigate } from 'react-router-dom';
+import API from '../api/axios';
+import { Truck } from 'lucide-react';
 
 const Login = () => {
-    const [formData, setFormData] = useState({ username: '', password: '' });
-    const navigate = useNavigate();
+  const [formData, setFormData] = useState({ username: '', password: '' });
+  const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     console.log("Нэвтрэх үйлдэл эхэллээ...", formData); // 1. Энэ гарч ирж байна уу?
 
@@ -21,32 +22,51 @@ const Login = () => {
         navigate('/dashboard'); 
         window.location.reload(); // Шилжихгүй бол хүчээр релоад хийж шалгах
     } catch (err) {
-        console.error("Алдаа гарлаа:", err.response?.data || err.message); // 3. Алдааг энд харна
-        alert(err.response?.data?.error || "Сервертэй холбогдож чадсангүй");
+        console.error("Алдаа гарлаа:", err.response?.data); // 3. Алдааг энд харна
+        alert(err.response?.data?.error);
     }
 };
 
-    return (
-        <div className="flex h-screen items-center justify-center bg-gray-100">
-            <form onSubmit={handleLogin} className="bg-white p-8 rounded-lg shadow-md w-96">
-                <h2 className="text-2xl font-bold mb-6 text-center">Нэвтрэх</h2>
-                <input 
-                    type="text" placeholder="Хэрэглэгчийн нэр" 
-                    className="w-full p-2 mb-4 border rounded"
-                    onChange={(e) => setFormData({...formData, username: e.target.value})}
-                />
-                <input 
-                    type="password" placeholder="Нууц үг" 
-                    className="w-full p-2 mb-6 border rounded"
-                    onChange={(e) => setFormData({...formData, password: e.target.value})}
-                />
-                <button className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Нэвтрэх</button>
-                <p className="mt-4 text-sm text-center">
-                    Бүртгэлгүй юу? <span className="text-blue-600 cursor-pointer" onClick={() => navigate('/signup')}>Бүртгүүлэх</span>
-                </p>
-            </form>
+  return (
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-logo">
+          <Truck size={32} />
         </div>
-    );
+        <h1 className="auth-title">Тавтай морил</h1>
+        <p className="auth-subtitle">Системд нэвтэрч ачаагаа хянана уу</p>
+        
+        <form onSubmit={handleLogin}>
+          <div className="form-group" style={{textAlign: 'left'}}>
+            <label>Хэрэглэгчийн нэр</label>
+            <input 
+              className="input-field" 
+              type="text" 
+              placeholder="Нэрээ оруулна уу"
+              onChange={(e) => setFormData({...formData, username: e.target.value})} 
+              required 
+            />
+          </div>
+          <div className="form-group" style={{textAlign: 'left'}}>
+            <label>Нууц үг</label>
+            <input 
+              className="input-field" 
+              type="password" 
+              placeholder="••••••••"
+              onChange={(e) => setFormData({...formData, password: e.target.value})} 
+              required 
+            />
+          </div>
+          <button className="submit-btn" style={{marginTop: '1rem'}}>Нэвтрэх</button>
+        </form>
+
+        <p className="auth-footer">
+          Бүртгэлгүй юу? 
+          <span className="auth-link" onClick={() => navigate('/signup')}>Шинээр бүртгүүлэх</span>
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default Login;

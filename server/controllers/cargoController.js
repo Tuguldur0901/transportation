@@ -10,12 +10,12 @@ exports.getAllCargo = async (req, res) => {
 };
 
 exports.createCargo = async (req, res) => {
-    const { item_name, sender, receiver } = req.body;
+    const { price, item_name, sender, weight, receiver } = req.body;
     const tracking_id = 'TRK' + Math.floor(Math.random() * 1000000);
     try {
         const result = await pool.query(
-            'INSERT INTO cargo (tracking_id, item_name, sender, receiver) VALUES ($1, $2, $3, $4) RETURNING *',
-            [tracking_id, item_name, sender, receiver]
+            'INSERT INTO cargo (tracking_id, price, item_name, sender, weight, receiver) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [tracking_id, price, item_name, sender, weight, receiver]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
