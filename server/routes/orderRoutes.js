@@ -1,0 +1,8 @@
+const express = require('express');
+const router = express.Router();
+const orderController = require('../controllers/orderController');
+const auth = require('../middleware/authMiddleware');
+
+router.post('/', auth, orderController.createOrder); // Захиалга хийх
+router.get('/my-orders', auth, orderController.getUserOrders); // Өөрийн захиалгыг харах
+module.exports = router;

@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
-import Signup from './pages/Signup'; // Энийг нэмнэ
+import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import Marketplace from './pages/Marketplace'; // <-- ЭНИЙГ МАРТАВ АА!
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('token');
@@ -9,17 +10,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Нэвтрэх болон Бүртгүүлэх замууд */}
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} /> 
-
-        {/* Хамгаалагдсан зам */}
-        <Route 
-          path="/dashboard" 
-          element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} 
-        />
-
-        {/* Бусад бүх тохиолдолд Login руу */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/marketplace" element={isAuthenticated ? <Marketplace /> : <Navigate to="/login" />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
